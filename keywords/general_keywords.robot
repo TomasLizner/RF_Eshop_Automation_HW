@@ -3,7 +3,10 @@ Library     SeleniumLibrary
 
 
 *** Variables ***
-${ESHOP_LOGO}       //*[@id="shp_logo"]
+${ESHOP_LOGO}           //*[@id="shp_logo"]
+${COOKIES_DIALOG}       //*[@id="unimodal_dialog"]//span[@class="ButtonDef"]
+${SEARCHBAR}            //input[@id="EXPS"]
+${SEARCH_BUTTON}        //button[contains(@class,"SearchSubmit")]
 
 
 *** Keywords ***
@@ -24,6 +27,10 @@ Open Browser And Navigate To Mironet Homepage
     Maximize Browser Window
     Mironet Homepage Displays
 
+Comfirm Cookie Dialog
+    UTILS Click Element    ${COOKIES_DIALOG}
+    Wait Until Page Does Not Contain Element    ${COOKIES_DIALOG}    timeout=3s
+
 #
 # Page Load Checks
 #
@@ -31,9 +38,17 @@ Open Browser And Navigate To Mironet Homepage
 Mironet Homepage Displays
     Wait Until Page Contains Element    ${ESHOP_LOGO}
 
+Verify Search Bar Is Displayed
+    Wait Until Page Contains Element    ${SEARCHBAR}
+
 #
 # Utils
 #
+
+UTILS Click Element
+    [Arguments]    ${locator}
+    _Prepare Element    ${locator}
+    Click Element    ${locator}
 
 Wait Until One Of Two Elements Is Visible
     [Arguments]    ${firstElement}    ${secondElement}    ${timeoutInSeconds}
@@ -56,10 +71,10 @@ Scroll Current Window To Top
 Scroll Current Window To Bottom
     Execute Javascript    window.scrollTo(0, document.body.scrollHeight);
 
-Scroll To Element Using Javascript
-    [Arguments]    ${elementXpath}
-    Execute Javascript    document.evaluate('${elementXpath}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
-    ...    .scrollIntoView({behavior: 'auto',block: 'center',inline: 'center'});
+_Prepare Element
+    [Arguments]    ${locator}
+    Wait Until Page Contains Element    ${locator}
+    Wait Until Element Is Visible    ${locator}
 
 #
 # Clicking
