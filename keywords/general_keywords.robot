@@ -5,7 +5,7 @@ Library     SeleniumLibrary
 *** Variables ***
 ${ESHOP_LOGO}           //*[@id="shp_logo"]
 ${COOKIES_DIALOG}       //*[@id="unimodal_dialog"]//span[@class="ButtonDef"]
-${SEARCHBAR}            //input[@id="EXPS"]
+${SEARCH_BAR}           //input[@id="EXPS"]
 ${SEARCH_BUTTON}        //button[contains(@class,"SearchSubmit")]
 
 
@@ -31,6 +31,11 @@ Comfirm Cookie Dialog
     UTILS Click Element    ${COOKIES_DIALOG}
     Wait Until Page Does Not Contain Element    ${COOKIES_DIALOG}    timeout=3s
 
+Set Search Bar And Click On Search Button
+    [Arguments]    ${value}
+    UTILS Input Text    ${SEARCH_BAR}    ${value}
+    Click Element    ${SEARCH_BUTTON}
+
 #
 # Page Load Checks
 #
@@ -39,7 +44,7 @@ Mironet Homepage Displays
     Wait Until Page Contains Element    ${ESHOP_LOGO}
 
 Verify Search Bar Is Displayed
-    Wait Until Page Contains Element    ${SEARCHBAR}
+    Wait Until Page Contains Element    ${SEARCH_BAR}
 
 #
 # Utils
@@ -49,6 +54,11 @@ UTILS Click Element
     [Arguments]    ${locator}
     _Prepare Element    ${locator}
     Click Element    ${locator}
+
+UTILS Input Text
+    [Arguments]    ${locator}    ${value}
+    _Prepare Element    ${locator}
+    Input Text    ${locator}    ${value}
 
 Wait Until One Of Two Elements Is Visible
     [Arguments]    ${firstElement}    ${secondElement}    ${timeoutInSeconds}
