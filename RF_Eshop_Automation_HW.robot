@@ -28,5 +28,6 @@ Add Two Most Expensive TVs Into The Basket
     Set Search Bar And Click On Search Button    Televize
     Select Category    Televize
     Sort By The Most Expensive
+    Verify Sorting By Most Expensive Works
     Add Two Most Expensive TVs Into The Basket
     Verify Basket Contains Expected Number Of Items    ${2}

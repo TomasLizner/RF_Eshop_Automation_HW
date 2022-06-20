@@ -1,11 +1,13 @@
 *** Settings ***
 Resource    ./basket.robot
+Library     ./helpers.py
 
 
 *** Variables ***
 ${TOP_BANNER}                   //*[contains(@class,"additional_search_category")]//span[text()="Televize"]
 ${THE_MOST_EXPENSIVE_BUTTON}    //*[@id="detail-tabs"]//span[text()="Nejdražší"]
 ${ITEMS}                        //*[@id="productContainer"]//div[@class="item_b"]
+${ITEM_PRICE}                   //div[@class="item_b_cena"]
 
 
 *** Keywords ***
@@ -15,6 +17,13 @@ Select Category
 
 Sort By The Most Expensive
     UTILS Click Element    ${THE_MOST_EXPENSIVE_BUTTON}
+
+Verify Sorting By Most Expensive Works
+    ${first_price_string}    Get Text    (${ITEMS}${ITEM_PRICE})[1]
+    ${second_price_string}    Get Text    (${ITEMS}${ITEM_PRICE})[2]
+    ${clean_first_price}=    parse_clean_price    ${first_price_string}
+    ${clean_second_price}=    parse_clean_price    ${second_price_string}
+    Should Be True    ${clean_first_price} > ${clean_second_price}
 
 Add Two Most Expensive TVs Into The Basket
     Put Goods Into The Basket    1
