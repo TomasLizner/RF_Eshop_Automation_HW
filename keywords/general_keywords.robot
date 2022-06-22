@@ -1,5 +1,6 @@
 *** Settings ***
 Library     SeleniumLibrary
+Library     ./helpers.py
 
 
 *** Variables ***
@@ -34,7 +35,7 @@ Confirm Cookie Dialog
 Set Search Bar And Click On Search Button
     [Arguments]    ${value}
     UTILS Input Text    ${SEARCH_BAR}    ${value}
-    Click Element    ${SEARCH_BUTTON}
+    UTILS Click Element    ${SEARCH_BUTTON}
 
 #
 # Page Load Checks
@@ -64,3 +65,9 @@ _Prepare Element
     [Arguments]    ${locator}
     Wait Until Page Contains Element    ${locator}
     Wait Until Element Is Visible    ${locator}
+
+Return Price Without Currency And Spaces
+    [Arguments]    ${locator}
+    ${found_price}=    Get Text    ${locator}
+    ${clean_price}=    Get Clean Price    ${found_price}
+    [Return]    ${clean_price}

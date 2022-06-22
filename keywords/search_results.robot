@@ -1,6 +1,5 @@
 *** Settings ***
 Resource    ./basket.robot
-Library     ./helpers.py
 
 
 *** Variables ***
@@ -18,10 +17,9 @@ Sort By The Most Expensive
     UTILS Click Element    ${THE_MOST_EXPENSIVE_BUTTON}
 
 Verify Sorting By Most Expensive Works
-    ${first_price_string}=    Get Text    (${ITEMS}${ITEM_PRICE})[1]
-    ${second_price_string}=    Get Text    (${ITEMS}${ITEM_PRICE})[2]
-    ${clean_first_price}=    Parse Clean Price    ${first_price_string}
-    ${clean_second_price}=    Parse Clean Price    ${second_price_string}
+    ${clean_first_price}=    Return Price Without Currency And Spaces    (${ITEMS}${ITEM_PRICE})[1]
+    ${clean_second_price}=    Return Price Without Currency And Spaces    (${ITEMS}${ITEM_PRICE})[2]
+    Capture Page Screenshot
     Should Be True    ${clean_first_price} > ${clean_second_price}
 
 Add Two Most Expensive TVs Into The Basket
@@ -31,5 +29,6 @@ Add Two Most Expensive TVs Into The Basket
     Put Goods Into The Basket    2
 
 Put Goods Into The Basket
+    [Documentation]    Adds good into the basket. ${goods_order} is order from the top left.
     [Arguments]    ${goods_order}
     UTILS Click Element    (${ITEMS}//input[@type="submit"])[${goods_order}]

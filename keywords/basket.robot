@@ -18,13 +18,11 @@ Back To Shop From The Basket
 Verify Basket Contains Expected Number Of Items
     [Arguments]    ${expected_items}
     Basket First Page Displays
-    ${count} =    Get Element Count    ${BASKET_FIRST_PAGE}${BASKET_PRODUCT}
+    ${count}=    Get Element Count    ${BASKET_FIRST_PAGE}${BASKET_PRODUCT}
     Run Keyword And Continue On Failure    Should Be Equal    ${count}    ${expected_items}
 
 Verify Basket Displayes Correct Total Price
     Basket First Page Displays
-    ${found_price_sum}=    Get Text    ${PRICE_SUM}
-    ${basket_price}=    Get Text    ${BASKET}//span
-    ${clean_basket_price}=    Parse Clean Price    ${basket_price}
-    ${clean_found_price}=    Parse Clean Price    ${found_price_sum}
+    ${clean_basket_price}=    Return Price Without Currency And Spaces    ${BASKET}//span
+    ${clean_found_price}=    Return Price Without Currency And Spaces    ${PRICE_SUM}
     Run Keyword And Continue On Failure    Should Be True    ${clean_basket_price} == ${clean_found_price}

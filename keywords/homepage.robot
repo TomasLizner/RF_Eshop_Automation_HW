@@ -1,6 +1,3 @@
-*** Settings ***
-Library     ./helpers.py
-
 *** Variables ***
 ${TOP_BANNER}       //div[contains(@class,"FloatBannersTitulka") and contains(@class,"owl-carousel")]
 ${BASKET}           //div[@class="BasketSumInfo"]
@@ -22,6 +19,5 @@ Verify Total Goods Price In The Basket
     Run Keyword And Continue On Failure    Wait Until Page Contains Element    ${FOOTER}
 
 Verify Basket Is Empty By Default
-    ${basket_price}=    Get Text    ${BASKET}//span
-    ${clean_price}=     Parse Clean Price    ${basket_price}
+    ${clean_price}=    Return Price Without Currency And Spaces    ${BASKET}//span
     Run Keyword And Continue On Failure    Should Be True    ${clean_price} == 0

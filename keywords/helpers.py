@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-def parse_clean_price(price_string_original):
+def get_clean_price(price_string_original):
     """
     Takes the whole price string with spaces and currency and returns just the clean price.
 
@@ -20,6 +20,7 @@ def __remove_currency(price_string_with_currency):
 
     Returns: Price string without the currency.
     """
+
     pattern = r'[Kč€]'
     price_string_without_currency = re.sub(pattern, '', price_string_with_currency)
     print(price_string_without_currency)
