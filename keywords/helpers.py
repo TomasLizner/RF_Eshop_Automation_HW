@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import re
 
 def parse_clean_price(price_string_original):
     """
@@ -15,13 +16,12 @@ def parse_clean_price(price_string_original):
 
 def __remove_currency(price_string_with_currency):
     """
-    Removes the Czech currency at the end of the string.
+    Removes the Czech and Euro currencies at the end of the string.
 
     Returns: Price string without the currency.
     """
-
-    string_size = len(price_string_with_currency)
-    price_string_without_currency = price_string_with_currency[:string_size - 2]
+    pattern = r'[Kč€]'
+    price_string_without_currency = re.sub(pattern, '', price_string_with_currency)
     print(price_string_without_currency)
     return price_string_without_currency
 

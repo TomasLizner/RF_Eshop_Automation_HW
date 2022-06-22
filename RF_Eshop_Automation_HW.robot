@@ -10,13 +10,14 @@ Resource            ./keywords/homepage.robot
 Resource            ./keywords/search_results.robot
 
 Test Setup          Run Keywords    Init Test Settings
-...                 AND    Open Browser And Navigate To Mironet Homepage
-...                 AND    Confirm Cookie Dialog
+...                     AND    Open Browser And Navigate To Mironet Homepage
+...                     AND    Confirm Cookie Dialog
 Test Teardown       Run Keyword    Close Browser
 
-*** Variables ***
 
-${PRODUCT}    Televize
+*** Variables ***
+${PRODUCT}      Televize
+
 
 *** Test Cases ***
 Homepage Loads Successfully
@@ -25,6 +26,7 @@ Homepage Loads Successfully
     Verify Top Banner Is Present
     Verify Basket Is Present
     Verify Footer Is Present
+    Verify Basket Is Empty By Default
 
 Add Two Most Expensive TVs Into The Basket
     [Documentation]    Opens Mironet homepage navigate to TVs category,
@@ -35,3 +37,4 @@ Add Two Most Expensive TVs Into The Basket
     Verify Sorting By Most Expensive Works
     Add Two Most Expensive TVs Into The Basket
     Verify Basket Contains Expected Number Of Items    ${2}
+    Verify Basket Displayes Correct Total Price
