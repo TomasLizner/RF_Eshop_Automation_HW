@@ -11,7 +11,7 @@ Resource            ./keywords/search_results.robot
 
 Test Setup          Run Keywords    Init Test Settings
 ...                 AND    Open Browser And Navigate To Mironet Homepage
-...                 AND    Comfirm Cookie Dialog
+...                 AND    Confirm Cookie Dialog
 Test Teardown       Run Keyword    Close Browser
 
 

@@ -27,7 +27,7 @@ Open Browser And Navigate To Mironet Homepage
     Maximize Browser Window
     Mironet Homepage Displays
 
-Comfirm Cookie Dialog
+Confirm Cookie Dialog
     UTILS Click Element    ${COOKIES_DIALOG}
     Wait Until Page Does Not Contain Element    ${COOKIES_DIALOG}    timeout=3s
 
