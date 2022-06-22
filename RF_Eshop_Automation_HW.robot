@@ -14,6 +14,9 @@ Test Setup          Run Keywords    Init Test Settings
 ...                 AND    Confirm Cookie Dialog
 Test Teardown       Run Keyword    Close Browser
 
+*** Variables ***
+
+${PRODUCT}    Televize
 
 *** Test Cases ***
 Homepage Loads Successfully
@@ -26,8 +29,8 @@ Homepage Loads Successfully
 Add Two Most Expensive TVs Into The Basket
     [Documentation]    Opens Mironet homepage navigate to TVs category,
     ...    adds two most expensive TVs to the shopping cart
-    Set Search Bar And Click On Search Button    Televize
-    Select Category    Televize
+    Set Search Bar And Click On Search Button    ${PRODUCT}
+    Select Category    ${PRODUCT}
     Sort By The Most Expensive
     Verify Sorting By Most Expensive Works
     Add Two Most Expensive TVs Into The Basket
